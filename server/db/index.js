@@ -5,7 +5,7 @@ module.exports = function (mongoose) {
     return {
 
         connect : function () {
-            var urlDB = 'mongodb://localhost/test';
+            var urlDB = 'mongodb://localhost/ANEM-kickstart';
             mongoose.connect(urlDB);
         },
 
