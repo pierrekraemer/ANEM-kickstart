@@ -1,0 +1,31 @@
+{
+	"name": "MyApp",
+	"version": "0.0.1",
+	"description": "My Angular / Node / Express / Mongo application",
+	"keywords": [],
+	"author": {
+		"name": "Pierre Kraemer"
+	},
+	"private": true,
+	"dependencies": {
+		"express": "4.2.x",
+		"body-parser" : "1.2.x",
+		"cookie-parser" : "1.1.x",
+		"express-session" : "1.1.x",
+		"method-override" : "1.0.x",
+		"serve-favicon" : "2.0.x",
+		"mongoose" : "3.8.x",
+		"passport" : "0.2.x",
+		"passport-local" : "1.0.x",
+		"bcrypt-nodejs" : "latest",
+		"morgan" : "1.0.x"
+	},
+	"devDependencies": {
+		"grunt": "0.4.x",
+		"grunt-contrib-clean": "0.5.x",
+		"grunt-contrib-copy": "0.5.x",
+		"grunt-contrib-concat": "0.4.x",
+		"grunt-contrib-uglify": "0.4.x",
+		"grunt-contrib-watch": "0.6.x"
+	}
+}

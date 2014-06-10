@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="main" ng-controller="MainCtrl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title ng-bind="pageTitle"> </title>
+
+    <base href="/">
+
+    <link rel="stylesheet" href="css/MyApp-0.0.1.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<a ui-sref="home" class="navbar-brand"> MyApp </a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li> <a ui-sref="about"> About </a> </li>
+            <li ng-if="isAuthorized([USER_ROLES.admin])" class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-wrench"></span> Admin <b class="caret"></b> </a>
+                <ul class="dropdown-menu">
+                    <li> <a ui-sref="admin.user"> User </a> </li>
+                </ul>
+            </li>
+		</ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li ng-if="!isAuthenticated()"> <a ui-sref="signin"> Sign in </a> </li>
+            <li ng-if="isAuthenticated()" class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> {{ currentUser().username }} <b class="caret"></b> </a>
+                <ul class="dropdown-menu">
+                    <li> <a ui-sref="user.profile"> Profile </a> </li>
+                    <li class="divider"></li>
+                    <li> <a href="" ng-click="signout()"> Sign out </a> </li>
+                </ul>
+            </li>
+        </ul>
+	</div>
+	</nav>
+
+    <div class="container" ui-view="main"></div>
+
+    <script src="js/MyApp-0.0.1.js"></script>
+    <!-- <script src="js/MyApp-0.0.1.min.js"></script> -->
+
+</body>
+
+</html>

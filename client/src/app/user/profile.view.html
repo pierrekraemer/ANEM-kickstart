@@ -1,0 +1,14 @@
+
+<header class="jumbotron">
+
+    <h1>Profile page</h1>
+
+    <p> Your name : {{ user.firstname + ' ' + user.lastname }} </p>
+    <p>
+        Your roles :
+        <ul>
+            <li ng-repeat="role in user.roles"> {{ role }} </li>
+        </ul>
+    </p>
+
+</header>
