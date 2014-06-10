@@ -10,7 +10,7 @@ angular.module('main', [
     'xeditable'
 ])
 
-.constant('APP_NAME', 'MyApp')
+.constant('APP_NAME', 'ANEM-kickstart')
 
 .config(['$urlRouterProvider', '$locationProvider',
 

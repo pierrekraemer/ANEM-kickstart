@@ -1,7 +1,7 @@
 {
-	"name": "MyApp",
+	"name": "ANEM-kickstart",
 	"version": "0.0.1",
-	"description": "My Angular / Node / Express / Mongo application",
+	"description": "Angular / Node / Express / Mongo web application kickstart",
 	"keywords": [],
 	"author": {
 		"name": "Pierre Kraemer"

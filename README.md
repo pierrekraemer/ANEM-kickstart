@@ -8,7 +8,7 @@ Angular Node Express Mongo kickstart
 Quick start
 -----------
 
-First install Node.js and MongoDB, then:
+First install [Node.js](http://nodejs.org/) and [MongoDB](http://www.mongodb.org/), then:
 
 ```sh
 $ git clone git://github.com/pierrekraemer/ANEM-kickstart
@@ -27,3 +27,20 @@ $ node server.js
 ```
 
 The site should be available at : localhost:3000
+
+
+Presentation
+------------
+
+`ANEM-kickstart` provides a starting point for a web application using
+[Node.js](http://nodejs.org/), [Express](http://expressjs.com/) and [MongoDB](http://www.mongodb.org/) on server side
+and [AngularJS](https://angularjs.org/) on client side.
+
+
+Customize
+---------
+
+To change the name of the application, you should change:
+- the "name" field in package.json and bower.json
+- the "APP_NAME" constant in client/src/app/app.js
+- the css and js file names in client/src/index.html
