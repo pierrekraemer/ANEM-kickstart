@@ -1,14 +1,14 @@
 ANEM-kickstart
 ==============
 
-Angular Node Express Mongo kickstart
+AngularJS NodeJS ExpressJS MongoDB web application kickstart
 
 ***
 
 Quick start
 -----------
 
-First install [Node.js](http://nodejs.org/) and [MongoDB](http://www.mongodb.org/), then:
+First install [NodeJS](http://nodejs.org/) and [MongoDB](http://www.mongodb.org/), then:
 
 ```sh
 $ git clone git://github.com/pierrekraemer/ANEM-kickstart
@@ -33,7 +33,7 @@ Presentation
 ------------
 
 `ANEM-kickstart` provides a starting point for a web application using
-[Node.js](http://nodejs.org/), [Express](http://expressjs.com/) and [MongoDB](http://www.mongodb.org/) on server side
+[NodeJS](http://nodejs.org/), [ExpressJS](http://expressjs.com/) and [MongoDB](http://www.mongodb.org/) on server side
 and [AngularJS](https://angularjs.org/) on client side.
 
 It provides user management with local authentification.
@@ -92,6 +92,9 @@ server/
   |  |-user.js
 ```
 
+The `grunt` task creates a `public` directory that contains all the client files to be served statically by the server (views, js, css, assets).
+JavaScript and CSS are concatenated into `app_name.app_version.js` and `app_name.app_version.css` files.
+
 
 Customize
 ---------
@@ -101,3 +104,10 @@ To change the name of the application, you should change:
 - the "APP_NAME" constant in client/src/app/app.js
 - the css and js file names in client/src/index.html
 - the name of the database in server/db/index.js
+
+
+Roadmap
+-------
+
+- Use angular ressource
+- Use intravenous for NodeJS dependency injection 

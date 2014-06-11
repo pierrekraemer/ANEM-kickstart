@@ -1,7 +1,7 @@
 {
 	"name": "ANEM-kickstart",
 	"version": "0.0.1",
-	"description": "AngularJS / Node.js / Express / MongoDB web application kickstart",
+	"description": "AngularJS / NodeJS / ExpressJS / MongoDB web application kickstart",
 	"keywords": [],
 	"homepage": "https://github.com/pierrekraemer/ANEM-kickstart",
 	"author": {
