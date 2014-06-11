@@ -89,7 +89,7 @@ You can launch `grunt watch` to automatically re-copy or re-generate modified cl
 
 ```
 server/
-  |-server.js      --> main server file (require dependencies, our application & launch server)
+  |-server.js      --> main server file (require dependencies, configure & launch server)
   |-config/        --> configure middleware (static file server, logger, session, ...)
   |-controllers/   --> controllers contain application logic
   |  |-index.js
