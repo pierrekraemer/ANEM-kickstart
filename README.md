@@ -50,6 +50,49 @@ $ db.users.insert({ firstname:'Bla', lastname:'Bla', username:'bla', password:''
 The password should be generated using bcrypt (you can use an online like [this one](http://bcrypthashgenerator.apphb.com/)).
 
 
+Structure
+---------
+
+### Client side
+
+```
+client/
+  |-src/
+  |  |-index.html
+  |  |-app/
+  |  |  |-app.js
+  |  |  |-about/
+  |  |  |-home/
+  |  |  |  |-home.css
+  |  |  |  |-home.js
+  |  |  |  |-home.view.html
+  |  |  |-user/
+  |  |  |-admin/
+  |  |-assets/
+  |  |-common/
+  |-vendor/
+```
+
+### Server side
+
+```
+server/
+  |-server.js
+  |-config/
+  |-controllers/
+  |  |-index.js
+  |  |-signin.js
+  |  |-user.js
+  |-db/
+  |  |-index.js
+  |  |-user.js
+  |-routes/
+  |  |-index.js
+  |  |-signin.js
+  |  |-user.js
+```
+
+
 Customize
 ---------
 

@@ -1,8 +1,9 @@
 {
 	"name": "ANEM-kickstart",
 	"version": "0.0.1",
-	"description": "Angular / Node / Express / Mongo web application kickstart",
+	"description": "AngularJS / Node.js / Express / MongoDB web application kickstart",
 	"keywords": [],
+	"homepage": "https://github.com/pierrekraemer/ANEM-kickstart",
 	"author": {
 		"name": "Pierre Kraemer"
 	},
@@ -17,7 +18,7 @@
 		"mongoose" : "3.8.x",
 		"passport" : "0.2.x",
 		"passport-local" : "1.0.x",
-		"bcrypt-nodejs" : "latest",
+		"bcrypt-nodejs" : "0.0.x",
 		"morgan" : "1.0.x"
 	},
 	"devDependencies": {
