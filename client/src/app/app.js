@@ -15,9 +15,7 @@ angular.module('main', [
 .config(['$urlRouterProvider', '$locationProvider',
 
     function ($urlRouterProvider, $locationProvider) {
-
         $urlRouterProvider.otherwise("/");
-
         $locationProvider.html5Mode(true);
     }
 ])
@@ -25,7 +23,6 @@ angular.module('main', [
 .run(['$rootScope', '$state', 'AuthService',
 
     function ($rootScope, $state, AuthService) {
-
         $rootScope._toState = 'home';
         $rootScope._toParams = {};
         var _toData;
@@ -40,7 +37,6 @@ angular.module('main', [
         });
 
         AuthService.tryRemoteAuth().then(function (signedin) {
-
             if (angular.isDefined(_toData) &&
                 angular.isDefined(_toData.authorizedRoles)) {
 
@@ -75,7 +71,6 @@ angular.module('main', [
 .run(['editableOptions', 'editableThemes',
 
     function(editableOptions, editableThemes) {
-
         editableThemes.bs3.inputClass = 'input-sm';
         editableThemes.bs3.buttonsClass = 'btn-sm';
         editableOptions.theme = 'bs3';
@@ -85,7 +80,6 @@ angular.module('main', [
 .controller('MainCtrl', ['$scope', '$state', 'AuthService', 'USER_ROLES', 'APP_NAME',
 
     function ($scope, $state, AuthService, USER_ROLES, APP_NAME) {
-
         $scope.currentUser = AuthService.currentUser;
         $scope.isAuthenticated = AuthService.isAuthenticated;
         $scope.isAuthorized = AuthService.isAuthorized;
