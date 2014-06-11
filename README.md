@@ -58,9 +58,9 @@ Structure
 ```
 client/
   |-src/
-  |  |-index.html
+  |  |-index.html    --> main template
   |  |-app/
-  |  |  |-app.js
+  |  |  |-app.js     --> top-level module definition
   |  |  |-about/
   |  |  |-home/
   |  |  |  |-home.css
