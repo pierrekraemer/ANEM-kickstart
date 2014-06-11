@@ -37,9 +37,9 @@ Presentation
 and [AngularJS](https://angularjs.org/) on client side.
 
 It provides user management with local authentification.
-A user with 'admin' role can create / update / delete users.
+A user with 'admin' role gets access to a user administration section where he can create / update / delete users.
 
-To create a first user, do the following:
+To create a first user manually in the database, do the following:
 
 ```sh
 $ mongo
@@ -57,20 +57,25 @@ Structure
 
 ```
 client/
-  |-src/
-  |  |-index.html    --> main template
+  |-vendor/                    --> third-party libraries (installed by bower)
+  |-src/                       --> application src
+  |  |-index.html              --> main template
   |  |-app/
-  |  |  |-app.js     --> top-level module definition
+  |  |  |-app.js               --> top-level (main) module definition
   |  |  |-about/
-  |  |  |-home/
-  |  |  |  |-home.css
-  |  |  |  |-home.js
-  |  |  |  |-home.view.html
-  |  |  |-user/
+  |  |  |-home/                --> each section gets its own directory
+  |  |  |  |-home.css          --> with its associated css,
+  |  |  |  |-home.js           --> module definition (routes, controller, service, directive, filter, ...),
+  |  |  |  |-home.view.html    --> and views
   |  |  |-admin/
-  |  |-assets/
-  |  |-common/
-  |-vendor/
+  |  |  |  |-admin.js
+  |  |  |  |-user/             --> sections can have sub-sections with the same structure
+  |  |  |  |  |-user.css
+  |  |  |  |  |-user.js
+  |  |  |  |  |-user.view.html
+  |  |  |-user/
+  |  |-assets/                 --> application assets (images, ...)
+  |  |-common/                 --> application wide stuff (services, directives, views, ...)
 ```
 
 ### Server side
