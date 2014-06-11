@@ -1,7 +1,7 @@
 ANEM-kickstart
 ==============
 
-AngularJS NodeJS ExpressJS MongoDB web application kickstart
+An extensible AngularJS NodeJS ExpressJS MongoDB web application kickstart
 
 ***
 
