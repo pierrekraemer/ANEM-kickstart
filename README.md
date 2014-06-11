@@ -109,5 +109,5 @@ To change the name of the application, you should change:
 Roadmap
 -------
 
-- Use angular ressource
-- Use intravenous for NodeJS dependency injection 
+- Use angular $ressource
+- Use [intravenous](http://www.royjacobs.org/intravenous/) for NodeJS dependency injection 
