@@ -32,7 +32,7 @@ The site should be available at : localhost:3000
 Presentation
 ------------
 
-`ANEM-kickstart` provides a starting point for a web application using
+`ANEM-kickstart` provides a starting point for an extensible web application using
 [NodeJS](http://nodejs.org/), [ExpressJS](http://expressjs.com/) and [MongoDB](http://www.mongodb.org/) on server side
 and [AngularJS](https://angularjs.org/) on client side.
 
