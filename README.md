@@ -61,7 +61,7 @@ client/
   |-src/                       --> application src
   |  |-index.html              --> main template
   |  |-app/
-  |  |  |-app.js               --> top-level (main) module definition
+  |  |  |-app.js               --> top-level module definition
   |  |  |-about/
   |  |  |-home/                --> each section gets its own directory
   |  |  |  |-home.css          --> with its associated css,
@@ -76,29 +76,36 @@ client/
   |  |  |-user/
   |  |-assets/                 --> application assets (images, ...)
   |  |-common/                 --> application wide stuff (services, directives, views, ...)
+  |  |  |-userAuth/
+  |  |  |  |-userAuth.js       --> user authentification service
 ```
+
+The `grunt` task creates a `public` directory that contains all the client files to be served statically by the server (views, js, css, assets).
+JavaScript and CSS are concatenated into `app_name.app_version.js` and `app_name.app_version.css` files.
+
+You can launch `grunt watch` to automatically re-copy or re-generate modified client side code.
 
 ### Server side
 
 ```
 server/
-  |-server.js
-  |-config/
-  |-controllers/
+  |-server.js      --> main server file (require dependencies, our application & launch server)
+  |-config/        --> configure middleware (static file server, logger, session, ...)
+  |-controllers/   --> controllers contain application logic
   |  |-index.js
-  |  |-signin.js
-  |  |-user.js
+  |  |-signin.js   --> each group of functionalities defines its functions
+  |  |-user.js         that are to be used by routes
   |-db/
-  |  |-index.js
-  |  |-user.js
+  |  |-index.js    --> connects to mongoDB server
+  |  |-user.js     --> models (mongoDB schemas) are defined here
   |-routes/
   |  |-index.js
-  |  |-signin.js
-  |  |-user.js
+  |  |-signin.js   --> each group of functionalities defines its routes
+  |  |-user.js         and can do authorization filtering
 ```
 
-The `grunt` task creates a `public` directory that contains all the client files to be served statically by the server (views, js, css, assets).
-JavaScript and CSS are concatenated into `app_name.app_version.js` and `app_name.app_version.css` files.
+The server must be relaunched to take code updates into account.
+This destroys current session, as sessions are not persisted for the moment.
 
 
 Customize

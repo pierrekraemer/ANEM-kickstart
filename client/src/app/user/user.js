@@ -46,6 +46,9 @@ angular.module('main.user', [
                     controller  : 'ProfileCtrl',
                     templateUrl : 'views/user/profile.view.html'
                 }
+            },
+            data  : {
+                pageTitle : 'User - Profile'
             }
         });
 
