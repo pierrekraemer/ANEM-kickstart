@@ -14,14 +14,14 @@ angular.module('main.admin.user', [
         $stateProvider
 
         .state('admin.user', {
-            url         : '/user',
+            url   : '/user',
             views : {
                 'admin' : {
                     controller  : 'AdminUserCtrl',
                     templateUrl : 'views/admin/user/user.view.html'
                 }
             },
-            data        : {
+            data  : {
                 pageTitle : 'Admin - User'
             }
         });

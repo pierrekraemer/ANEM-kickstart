@@ -35,7 +35,7 @@ angular.module('main.user', [
             },
             data     : {
                 authorizedRoles : [ USER_ROLES.user ],
-                pageTitle : 'User'
+                pageTitle       : 'User'
             }
         })
 

@@ -13,16 +13,16 @@ angular.module('main.admin', [
         $stateProvider
 
         .state('admin', {
-            abstract    : true,
-            url         : '/admin',
+            abstract : true,
+            url      : '/admin',
             views    : {
                 'main' : {
-                    template    : '<div ui-view="admin"></div>',
+                    template : '<div ui-view="admin"></div>',
                 }
             },
-            data        : {
+            data     : {
                 authorizedRoles : [ USER_ROLES.admin ],
-                pageTitle : 'Admin'
+                pageTitle       : 'Admin'
             }
         });
 
