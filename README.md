@@ -122,4 +122,5 @@ Roadmap
 -------
 
 - Use angular $ressource
+- Add a menu management system
 - Use [intravenous](http://www.royjacobs.org/intravenous/) for NodeJS dependency injection 
