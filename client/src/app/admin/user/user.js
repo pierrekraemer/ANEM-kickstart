@@ -2,6 +2,7 @@
 
 angular.module('main.admin.user', [
     'ui.router',
+    'ngResource',
     'userAuth',
     'ui.bootstrap',
     'xeditable'
@@ -30,9 +31,25 @@ angular.module('main.admin.user', [
 
 ])
 
-.controller('AdminUserCtrl', ['$scope', '$http', '$modal',
+// .factory('User', ['$resource',
+//
+//     function ($resource) {
+//         return $resource('/api/admin/user/:id',
+//         {
+//             id : '@_id'
+//         },
+//         {
+//             update : {
+//                 method : 'PUT'
+//             }
+//         });
+//     }
+//
+// ])
 
-    function ($scope, $http, $modal) {
+.controller('AdminUserCtrl', ['$scope', '$http', 'User', '$modal',
+
+    function ($scope, $http, User, $modal) {
 
         $scope.showAddUser = false;
 
@@ -45,6 +62,10 @@ angular.module('main.admin.user', [
         .then(function (res) {
             $scope.users = res.data;
         });
+
+        // User.query(function () {
+        //
+        // });
 
         $scope.addUser = function () {
             if ($scope.addUserFormData.password != $scope.addUserFormData.passwordConfirm) {

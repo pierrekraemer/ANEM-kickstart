@@ -15,6 +15,7 @@ module.exports = function (grunt) {
             js : [
                 'client/vendor/angular/angular.min.js',
                 'client/vendor/angular-ui-router/release/angular-ui-router.min.js',
+                'client/vendor/angular-resource/angular-resource.min.js',
                 'client/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'client/vendor/angular-xeditable/dist/js/xeditable.min.js'
             ],
