@@ -28,10 +28,10 @@ angular.module('menu', [
                     }
                 }
                 _menuItems.push({
-                    title  : menuTitle;
-                    public : angular.isDefined(isPublic) ? isPublic : true;
-                    roles  : angular.isDefined(authRoles) ? authRoles : [USER_ROLES.user];
-                    subMenuItems : [];
+                    title  : menuTitle,
+                    public : angular.isDefined(isPublic) ? isPublic : true,
+                    roles  : angular.isDefined(authRoles) ? authRoles : [USER_ROLES.user],
+                    subMenuItems : []
                 });
             },
 
@@ -44,10 +44,10 @@ angular.module('menu', [
                         }
                     }
                     menu.subMenuItems.push({
-                        title  : subMenuTitle;
-                        public : angular.isDefined(isPublic) ? isPublic : true;
-                        roles  : angular.isDefined(authRoles) ? authRoles : [USER_ROLES.user];
-                        route  : itemRoute;
+                        title  : subMenuTitle,
+                        public : angular.isDefined(isPublic) ? isPublic : true,
+                        roles  : angular.isDefined(authRoles) ? authRoles : [USER_ROLES.user],
+                        route  : itemRoute
                     });
                 }
             }
