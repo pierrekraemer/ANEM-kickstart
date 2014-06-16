@@ -1,19 +1,17 @@
 'use strict';
 
-angular.module('menu', [
-    'userAuth'
-])
+angular.module('menus', [])
 
-.factory('MenuService', [ 'USER_ROLES',
+.factory('MenuService',
 
-    function (USER_ROLES) {
+    function () {
 
         var _menuItems = [];
 
-        function _getMenuItem (menuTitle) {
-            for (var i = 0; i < _menuItems.length; i++) {
-                if (_menuItems[i].title == menuTitle) {
-                    return _menuItems[i];
+        function _getMenuItem (menu, itemTitle) {
+            for (var i = 0; i < menu.length; i++) {
+                if (menu[i].title == itemTitle) {
+                    return menu[i];
                 }
             }
             return null;
@@ -21,39 +19,66 @@ angular.module('menu', [
 
         return {
 
-            addMenuItem : function (menuTitle, isPublic, authRoles) {
-                for (var i = 0; i < _menuItems.length; i++) {
-                    if (_menuItems[i].title == menuTitle) {
-                        return;
-                    }
-                }
-                _menuItems.push({
-                    title  : menuTitle,
-                    public : angular.isDefined(isPublic) ? isPublic : true,
-                    roles  : angular.isDefined(authRoles) ? authRoles : [USER_ROLES.user],
-                    subMenuItems : []
-                });
+            getMenu : function () {
+                return _menuItems;
             },
 
-            addSubMenuItem : function (menuTitle, subMenuTitle, itemRoute, isPublic, authRoles) {
-                var menu = _getMenuItem(menuTitle);
-                if (menu) {
-                    for (var i = 0; i < menu.subMenuItems.length; i++) {
-                        if (menu.subMenuItems[i].title == subMenuTitle) {
-                            return;
-                        }
-                    }
-                    menu.subMenuItems.push({
-                        title  : subMenuTitle,
+            addMenuItem : function (menuItemTitle, menuItemState, menuItemType, isPublic, authRoles) {
+                var menuItem = _getMenuItem(_menuItems, menuItemTitle);
+                if (!menuItem) {
+                    menuItem = {
+                        title  : menuItemTitle,
+                        state  : menuItemState,
+                        type   : angular.isDefined(menuItemType) ? menuItemType : 'item',
                         public : angular.isDefined(isPublic) ? isPublic : true,
-                        roles  : angular.isDefined(authRoles) ? authRoles : [USER_ROLES.user],
-                        route  : itemRoute
-                    });
+                        roles  : [],
+                        subMenuItems : []
+                    };
+                    if (!isPublic) {
+                        menuItem.roles = authRoles;
+                    }
+                    _menuItems.push(menuItem);
+                }
+            },
+
+            addSubMenuItem : function (menuItemTitle, subMenuItemTitle, subMenuItemState, isPublic, authRoles) {
+                var menuItem = _getMenuItem(_menuItems, menuItemTitle);
+                if (!menuItem) {
+                    menuItem = {
+                        title  : menuItemTitle,
+                        state  : '',
+                        type   : 'dropdown',
+                        public : angular.isDefined(isPublic) ? isPublic : true,
+                        roles  : [],
+                        subMenuItems : []
+                    };
+                    if (!isPublic) {
+                        menuItem.roles = authRoles;
+                    }
+                    _menuItems.push(menuItem);
+                }
+                var subMenuItem = _getMenuItem(menuItem.subMenuItems, subMenuItemTitle);
+                if (!subMenuItem) {
+                    menuItem.state = '';
+                    menuItem.type = 'dropdown';
+                    var subMenuItem = {
+                        title  : subMenuItemTitle,
+                        state  : subMenuItemState,
+                        public : angular.isDefined(isPublic) ? isPublic : true,
+                        roles  : []
+                    };
+                    if (!isPublic) {
+                        subMenuItem.roles = authRoles;
+                        menuItem.roles = menuItem.roles.concat(authRoles);
+                    } else {
+                        menuItem.public = isPublic;
+                    }
+                    menuItem.subMenuItems.push(subMenuItem);
                 }
             }
 
         };
     }
-])
+)
 
 ;

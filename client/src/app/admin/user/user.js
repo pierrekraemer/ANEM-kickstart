@@ -4,6 +4,7 @@ angular.module('main.admin.user', [
     'ui.router',
     'ngResource',
     'userAuth',
+    'menus',
     'ui.bootstrap',
     'xeditable'
 ])
@@ -31,6 +32,14 @@ angular.module('main.admin.user', [
 
 ])
 
+.run(['MenuService', 'USER_ROLES',
+
+    function (MenuService, USER_ROLES) {
+        MenuService.addSubMenuItem('Admin', 'User', 'admin.user', false, [USER_ROLES.admin]);
+    }
+
+])
+
 // .factory('User', ['$resource',
 //
 //     function ($resource) {
@@ -47,9 +56,9 @@ angular.module('main.admin.user', [
 //
 // ])
 
-.controller('AdminUserCtrl', ['$scope', '$http', 'User', '$modal',
+.controller('AdminUserCtrl', ['$scope', '$http', '$modal',
 
-    function ($scope, $http, User, $modal) {
+    function ($scope, $http, $modal) {
 
         $scope.showAddUser = false;
 
@@ -62,10 +71,6 @@ angular.module('main.admin.user', [
         .then(function (res) {
             $scope.users = res.data;
         });
-
-        // User.query(function () {
-        //
-        // });
 
         $scope.addUser = function () {
             if ($scope.addUserFormData.password != $scope.addUserFormData.passwordConfirm) {

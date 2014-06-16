@@ -3,6 +3,7 @@
 angular.module('main.admin', [
     'ui.router',
     'userAuth',
+    'menus',
     'main.admin.user'
 ])
 

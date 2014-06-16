@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('main.about', [
-    'ui.router'
+    'ui.router',
+    'menus'
 ])
 
 .config(['$stateProvider',
@@ -23,6 +24,14 @@ angular.module('main.about', [
             }
         });
 
+    }
+
+])
+
+.run(['MenuService',
+
+    function (MenuService) {
+        MenuService.addMenuItem('About', 'about');
     }
 
 ])

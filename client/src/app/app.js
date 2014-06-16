@@ -3,6 +3,7 @@
 angular.module('main', [
     'ui.router',
     'userAuth',
+    'menus',
     'main.home',
     'main.about',
     'main.user',
@@ -77,9 +78,9 @@ angular.module('main', [
     }
 ])
 
-.controller('MainCtrl', ['$scope', '$state', 'AuthService', 'USER_ROLES', 'APP_NAME',
+.controller('MainCtrl', ['$scope', '$state', 'MenuService', 'AuthService', 'USER_ROLES', 'APP_NAME',
 
-    function ($scope, $state, AuthService, USER_ROLES, APP_NAME) {
+    function ($scope, $state, MenuService, AuthService, USER_ROLES, APP_NAME) {
         $scope.currentUser = AuthService.currentUser;
         $scope.isAuthenticated = AuthService.isAuthenticated;
         $scope.isAuthorized = AuthService.isAuthorized;
@@ -87,6 +88,8 @@ angular.module('main', [
         $scope.USER_ROLES = USER_ROLES;
 
         $scope.APP_NAME = APP_NAME;
+
+        $scope.menuItems = MenuService.getMenu();
 
         $scope.signout = function () {
             AuthService.signout();
