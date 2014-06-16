@@ -90,6 +90,7 @@ angular.module('main', [
         $scope.APP_NAME = APP_NAME;
 
         $scope.menuItems = MenuService.getMenu();
+        $scope.menuCollapsed = true;
 
         $scope.signout = function () {
             AuthService.signout();
