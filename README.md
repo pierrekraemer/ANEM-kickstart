@@ -76,8 +76,9 @@ client/
   |  |  |-user/
   |  |-assets/                 --> application assets (images, ...)
   |  |-common/                 --> application wide stuff (services, directives, views, ...)
-  |  |  |-userAuth/
+  |  |  |-services/
   |  |  |  |-userAuth.js       --> user authentification service
+  |  |  |  |-menu.js           --> menu management service
 ```
 
 The `grunt` task creates a `public` directory that contains all the client files to be served statically by the server (views, js, css, assets).
