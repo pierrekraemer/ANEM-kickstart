@@ -122,6 +122,5 @@ Roadmap
 -------
 
 - Use angular $ressource
-- Add a menu management system
 - Use [SemanticUI](http://semantic-ui.com/) in place of Bootstrap
 - Use [intravenous](http://www.royjacobs.org/intravenous/) for NodeJS dependency injection 
