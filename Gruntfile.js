@@ -99,7 +99,7 @@ module.exports = function (grunt) {
             app_common_views : {
                 files : [
                     { // our app common views
-                        cwd : 'client/src/common',
+                        cwd : 'client/src/common/views',
                         src : ['**/*.view.html'],
                         dest : 'public/views/common',
                         expand : true,
