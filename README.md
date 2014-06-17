@@ -123,5 +123,6 @@ Roadmap
 -------
 
 - Use angular $ressource
-- Use [SemanticUI](http://semantic-ui.com/) in place of Bootstrap
+- set up tests
+- Use [SemanticUI](http://semantic-ui.com/) in place of Bootstrap ?
 - Use [intravenous](http://www.royjacobs.org/intravenous/) for NodeJS dependency injection 
