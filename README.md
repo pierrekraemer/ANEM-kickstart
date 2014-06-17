@@ -26,7 +26,7 @@ $ cd server
 $ node server.js
 ```
 
-The site should be available at : localhost:3000
+The site should be available at : http://localhost:3000
 
 
 Presentation
@@ -77,7 +77,7 @@ client/
   |  |-assets/                 --> application assets (images, ...)
   |  |-common/                 --> application wide stuff (services, directives, views, ...)
   |  |  |-services/
-  |  |  |  |-userAuth.js       --> user authentification service
+  |  |  |  |-userAuth.js       --> user authentication service
   |  |  |  |-menu.js           --> menu management service
 ```
 
