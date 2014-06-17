@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = function (userModel, passport) {
+module.exports = function (dbModels, passport) {
 
     return {
 
         signin : require('./signin')(passport),
-        user   : require('./user')(userModel)
+        user   : require('./user')(dbModels.user)
 
     }
 

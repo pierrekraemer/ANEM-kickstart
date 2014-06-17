@@ -7,7 +7,7 @@ module.exports = function (app,
                            session,
                            methodOverride,
                            favicon,
-                           userModel,
+                           dbModels,
                            passport,
                            logger,
                            publicPath) {
@@ -27,7 +27,7 @@ module.exports = function (app,
         cookie: { maxAge: (86400 * 1000) } // 24h
     }));
 
-    require('./passport')(passport, userModel);
+    require('./passport')(passport, dbModels.user);
 
     app.use(passport.initialize());
     app.use(passport.session());

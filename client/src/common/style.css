@@ -1,4 +1,8 @@
 
+body {
+    padding-top: 80px;
+}
+
 .btn.pull-left {
     margin-right: 5px;
 }

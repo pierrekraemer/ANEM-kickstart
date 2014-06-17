@@ -38,6 +38,7 @@
 
 <div class="row">
     <h3> Users list </h3>
+    <pagination total-items="totalNbUsers" num-pages="nbUsersPages" ng-model="currentUsersPage" items-per-page="nbUsersPerPage" class="pagination-sm" ng-change="userPageChanged()"></pagination>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="user in users">
             <div class="clearfix">

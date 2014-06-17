@@ -61,16 +61,33 @@ angular.module('main.admin.user', [
     function ($scope, $http, $modal) {
 
         $scope.showAddUser = false;
-
         $scope.addUserFormData = {};
 
         $scope.users = [];
+        $scope.totalNbUsers = 0;
+        $scope.nbUsersPerPage = 5;
+        $scope.nbUsersPages = 0;
+        $scope.currentUsersPage = 1;
 
         $http
-        .get('/api/admin/user')
+        .get('/api/admin/user/count')
+        .then(function (res) {
+            $scope.totalNbUsers = res.data;
+        });
+
+        $http
+        .get('/api/admin/user/' + $scope.nbUsersPerPage + '/' + $scope.currentUsersPage)
         .then(function (res) {
             $scope.users = res.data;
         });
+
+        $scope.userPageChanged = function () {
+            $http
+            .get('/api/admin/user/' + $scope.nbUsersPerPage + '/' + $scope.currentUsersPage)
+            .then(function (res) {
+                $scope.users = res.data;
+            });
+        };
 
         $scope.addUser = function () {
             if ($scope.addUserFormData.password != $scope.addUserFormData.passwordConfirm) {
@@ -82,13 +99,13 @@ angular.module('main.admin.user', [
                 .then(function (res) {
                     if (res.data.success) {
                         $scope.addUserFormData = {};
-                        $scope.users.push(res.data.user);
+                        $scope.totalNbUsers++;
                     }
                 });
             }
         };
 
-        $scope.updateUser = function(user, prop, value) {
+        $scope.updateUser = function (user, prop, value) {
             if (user.hasOwnProperty(prop)) {
                 var updateData = {};
                 updateData[prop] = value;
@@ -151,7 +168,7 @@ angular.module('main.admin.user', [
                                 break;
                         }
                         if (index < $scope.users.length) {
-                            $scope.users.splice(index, 1);
+                            $scope.totalNbUsers--;
                         }
                     }
                 });

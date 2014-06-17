@@ -20,19 +20,45 @@ module.exports = function (userModel) {
         },
 
         getAll : function (req, res) {
-            User.find({}, function (err, users) {
+            User
+            .find()
+            .select('-password')
+            .sort('username')
+            .exec(function (err, users) {
                 res.json(users);
             });
         },
 
+        getPage : function (req, res) {
+            User
+            .find()
+            .select('-password')
+            .sort('username')
+            .skip((req.params.currentPage - 1) * req.params.nbPerPage)
+            .limit(req.params.nbPerPage)
+            .exec(function (err, users) {
+                res.json(users);
+            });
+        },
+
+        count : function (req, res) {
+            User.count(function (err, count) {
+                res.json(count);
+            });
+        },
+
         getById : function (req, res) {
-            User.findById(req.params.id, function (err, user) {
+            User
+            .findById(req.params.id)
+            .select('-password')
+            .exec(function (err, user) {
                 res.json(user);
             });
         },
 
         create : function (req, res) {
-            User.findOne({ 'username' : req.body.username }, function (err, user) {
+            User
+            .findOne({ 'username' : req.body.username }, function (err, user) {
                 if (err) {
                     res.json({ success : false });
                 }
@@ -62,7 +88,8 @@ module.exports = function (userModel) {
             if (req.body.hasOwnProperty('password')) {
                 req.body.password = User.generateHash(req.body.password);
             }
-            User.findByIdAndUpdate(req.params.id, req.body, function (err) {
+            User
+            .findByIdAndUpdate(req.params.id, req.body, function (err) {
                 if (err) {
                     res.json({ success : false });
                 } else {
@@ -72,7 +99,8 @@ module.exports = function (userModel) {
         },
 
         delete : function (req, res, next) {
-            User.findByIdAndRemove(req.params.id, function (err) {
+            User
+            .findByIdAndRemove(req.params.id, function (err) {
                 if (err) {
                     res.json({ success : false });
                 } else {

@@ -25,12 +25,12 @@ require('./config')(app,
                     session,
                     methodOverride,
                     favicon,
-                    db.models['user'],
+                    db.models,
                     passport,
                     logger,
                     publicPath);
 
-var controllers = require('./controllers')(db.models['user'],
+var controllers = require('./controllers')(db.models,
                                            passport);
 
 require('./routes')(app,
