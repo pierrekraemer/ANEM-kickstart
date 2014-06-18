@@ -95,14 +95,14 @@ server/
   |-controllers/   --> controllers contain application logic
   |  |-index.js
   |  |-signin.js   --> each group of functionalities defines its functions
-  |  |-user.js         that are to be used by routes
+  |  |-users.js        that are to be used by routes
   |-db/
-  |  |-index.js    --> connects to mongoDB server
+  |  |-index.js    --> configure connection to mongoDB server and requires models
   |  |-user.js     --> models (mongoDB schemas) are defined here
   |-routes/
   |  |-index.js
   |  |-signin.js   --> each group of functionalities defines its routes
-  |  |-user.js         and can do authorization filtering
+  |  |-users.js        and can do authorization filtering
 ```
 
 The server must be relaunched to take code updates into account.
