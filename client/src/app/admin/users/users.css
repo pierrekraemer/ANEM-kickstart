@@ -1,0 +1,11 @@
+
+.admin-users h3 {
+    border-bottom: 1px solid #ababab;
+}
+.admin-users h3#adduser:hover {
+    border-bottom-style: dotted;
+}
+
+.font14 {
+    font-size: 14px;
+}

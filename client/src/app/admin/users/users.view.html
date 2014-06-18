@@ -1,7 +1,9 @@
 
+<div class="admin-users">
+
 <div class="row">
-    <h3 class="pointer" ng-click="showAddUser = !showAddUser">
-        Add user <span class="btn glyphicon" ng-class="{ 'glyphicon-chevron-down' : !showAddUser, 'glyphicon-chevron-up' : showAddUser }"></span>
+    <h3 id="adduser" class="pointer border-bottom" ng-click="showAddUser = !showAddUser">
+        Add user <span class="glyphicon font14" ng-class="{ 'glyphicon-chevron-down' : !showAddUser, 'glyphicon-chevron-up' : showAddUser }"></span>
     </h3>
     <form class="form-horizontal" name="addUserForm" collapse="!showAddUser" ng-submit="addUser()">
         <div class="form-group">
@@ -87,4 +89,6 @@
             </div>
         </li>
     </ul>
+</div>
+
 </div>

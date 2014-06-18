@@ -102,6 +102,7 @@ angular.module('main', [
                 angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | ' + APP_NAME ;
             }
+            $scope.menuCollapsed = true;
         });
     }
 ]);
