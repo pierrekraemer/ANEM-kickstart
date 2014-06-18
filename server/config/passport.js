@@ -31,10 +31,9 @@ module.exports = function (passport, userModel) {
 
     passport.use('local', new LocalStrategy(
         {
-            // by default, local strategy uses username and password
             usernameField : 'username',
             passwordField : 'password'
-            // passReqToCallback : true // allows us to pass back the entire request to the callback
+            // passReqToCallback : true // allows to pass back the entire request to the callback
         },
         function (username, password, next) {
             // find a user whose username is the same as the forms username

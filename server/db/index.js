@@ -2,11 +2,12 @@
 
 module.exports = function (mongoose) {
 
+    var _urlDB = 'mongodb://localhost/ANEM-kickstart';
+
     return {
 
         connect : function () {
-            var urlDB = 'mongodb://localhost/ANEM-kickstart';
-            mongoose.connect(urlDB);
+            mongoose.connect(_urlDB);
         },
 
         models : {
