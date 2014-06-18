@@ -69,6 +69,7 @@ angular.module('main.user', [
             .then(function (data) {
                 if (!data.success) {
                     $scope.message = data.message;
+                    $scope.formData.password = "";
                 } else {
                     $state.go($rootScope._toState, $rootScope._toParams);
                 }

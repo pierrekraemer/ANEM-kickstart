@@ -4,7 +4,7 @@ angular.module('main.admin', [
     'ui.router',
     'userAuth',
     'menus',
-    'main.admin.user'
+    'main.admin.users'
 ])
 
 .config(['$stateProvider', 'USER_ROLES',

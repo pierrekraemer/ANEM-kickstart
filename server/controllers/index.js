@@ -5,7 +5,7 @@ module.exports = function (dbModels, passport) {
     return {
 
         signin : require('./signin')(passport),
-        user   : require('./user')(dbModels.user)
+        users  : require('./users')(dbModels.user)
 
     }
 

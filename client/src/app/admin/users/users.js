@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('main.admin.user', [
+angular.module('main.admin.users', [
     'ui.router',
     'ngResource',
     'userAuth',
@@ -15,16 +15,16 @@ angular.module('main.admin.user', [
 
         $stateProvider
 
-        .state('admin.user', {
-            url   : '/user',
+        .state('admin.users', {
+            url   : '/users',
             views : {
                 'admin' : {
                     controller  : 'AdminUserCtrl',
-                    templateUrl : 'views/admin/user/user.view.html'
+                    templateUrl : 'views/admin/users/users.view.html'
                 }
             },
             data  : {
-                pageTitle : 'Admin - User'
+                pageTitle : 'Admin - Users'
             }
         });
 
@@ -35,15 +35,15 @@ angular.module('main.admin.user', [
 .run(['MenuService', 'USER_ROLES',
 
     function (MenuService, USER_ROLES) {
-        MenuService.addSubMenuItem('Admin', 'User', 'admin.user', false, [USER_ROLES.admin]);
+        MenuService.addSubMenuItem('Admin', 'Users', 'admin.users', false, [ USER_ROLES.admin ]);
     }
 
 ])
 
-// .factory('User', ['$resource',
+// .factory('Users', ['$resource',
 //
 //     function ($resource) {
-//         return $resource('/api/admin/user/:id',
+//         return $resource('/api/admin/users/:id',
 //         {
 //             id : '@_id'
 //         },
@@ -70,20 +70,20 @@ angular.module('main.admin.user', [
         $scope.currentUsersPage = 1;
 
         $http
-        .get('/api/admin/user/count')
+        .get('/api/admin/users/count')
         .then(function (res) {
             $scope.totalNbUsers = res.data;
         });
 
         $http
-        .get('/api/admin/user/' + $scope.nbUsersPerPage + '/' + $scope.currentUsersPage)
+        .get('/api/admin/users/' + $scope.nbUsersPerPage + '/' + $scope.currentUsersPage)
         .then(function (res) {
             $scope.users = res.data;
         });
 
         $scope.userPageChanged = function () {
             $http
-            .get('/api/admin/user/' + $scope.nbUsersPerPage + '/' + $scope.currentUsersPage)
+            .get('/api/admin/users/' + $scope.nbUsersPerPage + '/' + $scope.currentUsersPage)
             .then(function (res) {
                 $scope.users = res.data;
             });
@@ -95,7 +95,7 @@ angular.module('main.admin.user', [
             } else {
                 $scope.passwordConfirmError = false;
                 $http
-                .post('/api/admin/user', $scope.addUserFormData)
+                .post('/api/admin/users', $scope.addUserFormData)
                 .then(function (res) {
                     if (res.data.success) {
                         $scope.addUserFormData = {};
@@ -111,7 +111,7 @@ angular.module('main.admin.user', [
                 updateData[prop] = value;
 
                 $http
-                .put('/api/admin/user/' + user._id, updateData)
+                .put('/api/admin/users/' + user._id, updateData)
                 .then(function (res) {
                     return res.data.success;
                 });
@@ -123,7 +123,7 @@ angular.module('main.admin.user', [
                 var new_roles = user.roles.slice(0);
                 new_roles.push(role);
                 $http
-                .put('/api/admin/user/' + user._id, { roles : new_roles })
+                .put('/api/admin/users/' + user._id, { roles : new_roles })
                 .then(function (res) {
                     if (res.data.success) {
                         user.roles.push(role);
@@ -138,7 +138,7 @@ angular.module('main.admin.user', [
                 var new_roles = user.roles.slice(0);
                 new_roles.splice(index, 1);
                 $http
-                .put('/api/admin/user/' + user._id, { roles : new_roles })
+                .put('/api/admin/users/' + user._id, { roles : new_roles })
                 .then(function (res) {
                     if (res.data.success) {
                         user.roles.splice(index, 1);
@@ -159,7 +159,7 @@ angular.module('main.admin.user', [
 
             confirmation.result.then(function () {
                 $http
-                .delete('/api/admin/user/' + user._id)
+                .delete('/api/admin/users/' + user._id)
                 .then(function (res) {
                     if (res.data.success) {
                         var index = 0;
