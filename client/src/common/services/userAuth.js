@@ -17,7 +17,7 @@ angular.module('userAuth', [])
 
             signin : function (credentials) {
                 return $http
-                .post('/api/signin', credentials)
+                .post('/api/users/signin', credentials)
                 .then(function (res) {
                     if (res.data.success) {
                         _user = res.data.user;
@@ -28,7 +28,7 @@ angular.module('userAuth', [])
 
             signout : function () {
                 return $http
-                .get('/api/signout')
+                .get('/api/users/signout')
                 .then(function (res) {
                     _user = null;
                     return res.data;
@@ -41,7 +41,7 @@ angular.module('userAuth', [])
 
             tryRemoteAuth : function () {
                 return $http
-                .get('/api/signedin')
+                .get('/api/users/signedin')
                 .then(function (res) {
                     if (res.data.success) {
                         _user = res.data.user;

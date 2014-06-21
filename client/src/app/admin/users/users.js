@@ -70,20 +70,24 @@ angular.module('main.admin.users', [
         $scope.currentUsersPage = 1;
 
         $http
-        .get('/api/admin/users/count')
+        .get('/api/users/count')
         .then(function (res) {
             $scope.totalNbUsers = res.data;
         });
 
-        $http
-        .get('/api/admin/users/' + $scope.nbUsersPerPage + '/' + $scope.currentUsersPage)
-        .then(function (res) {
-            $scope.users = res.data;
-        });
+        function updateUsersList () {
+            $http
+            .get('/api/users/' + $scope.nbUsersPerPage + '/' + $scope.currentUsersPage)
+            .then(function (res) {
+                $scope.users = res.data;
+            });
+        }
+
+        updateUsersList();
 
         $scope.userPageChanged = function () {
             $http
-            .get('/api/admin/users/' + $scope.nbUsersPerPage + '/' + $scope.currentUsersPage)
+            .get('/api/users/' + $scope.nbUsersPerPage + '/' + $scope.currentUsersPage)
             .then(function (res) {
                 $scope.users = res.data;
             });
@@ -95,11 +99,12 @@ angular.module('main.admin.users', [
             } else {
                 $scope.passwordConfirmError = false;
                 $http
-                .post('/api/admin/users', $scope.addUserFormData)
+                .post('/api/users', $scope.addUserFormData)
                 .then(function (res) {
                     if (res.data.success) {
                         $scope.addUserFormData = {};
                         $scope.totalNbUsers++;
+                        updateUsersList();
                     }
                 });
             }
@@ -111,7 +116,7 @@ angular.module('main.admin.users', [
                 updateData[prop] = value;
 
                 $http
-                .put('/api/admin/users/' + user._id, updateData)
+                .put('/api/users/' + user._id, updateData)
                 .then(function (res) {
                     return res.data.success;
                 });
@@ -123,7 +128,7 @@ angular.module('main.admin.users', [
                 var new_roles = user.roles.slice(0);
                 new_roles.push(role);
                 $http
-                .put('/api/admin/users/' + user._id, { roles : new_roles })
+                .put('/api/users/' + user._id, { roles : new_roles })
                 .then(function (res) {
                     if (res.data.success) {
                         user.roles.push(role);
@@ -138,7 +143,7 @@ angular.module('main.admin.users', [
                 var new_roles = user.roles.slice(0);
                 new_roles.splice(index, 1);
                 $http
-                .put('/api/admin/users/' + user._id, { roles : new_roles })
+                .put('/api/users/' + user._id, { roles : new_roles })
                 .then(function (res) {
                     if (res.data.success) {
                         user.roles.splice(index, 1);
@@ -159,17 +164,11 @@ angular.module('main.admin.users', [
 
             confirmation.result.then(function () {
                 $http
-                .delete('/api/admin/users/' + user._id)
+                .delete('/api/users/' + user._id)
                 .then(function (res) {
                     if (res.data.success) {
-                        var index = 0;
-                        for (index = 0; index < $scope.users.length; index++) {
-                            if ($scope.users[index]._id == user._id)
-                                break;
-                        }
-                        if (index < $scope.users.length) {
-                            $scope.totalNbUsers--;
-                        }
+                        $scope.totalNbUsers--;
+                        updateUsersList();
                     }
                 });
             });

@@ -20,7 +20,7 @@ module.exports = function (app,
     app.use(cookieParser());
     app.use(bodyParser());
 
-    app.use(methodOverride()); // allows request of type DELETE and PUT
+    app.use(methodOverride());
 
     app.use(session({
         secret: 'thisismysecret',

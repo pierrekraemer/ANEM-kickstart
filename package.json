@@ -9,6 +9,7 @@
 	},
 	"private": true,
 	"dependencies": {
+		"broadway": "0.2.x",
 		"express": "4.2.x",
 		"body-parser" : "1.2.x",
 		"cookie-parser" : "1.1.x",
