@@ -20,7 +20,7 @@ module.exports = function (user) {
                 req.login(user, function (err) {
                     if (err)
                         return next(err);
-                    return res.json({ success : true, message : info.message, user : user });
+                    return res.json({ success : true, message : info.message, user : user }); // TODO : remove password in response
                 });
             })(req, res, next);
         },
@@ -96,7 +96,7 @@ module.exports = function (user) {
 						if (err) {
 							res.json({ success : false });
 						} else {
-							res.json({ success : true, user : newUser });
+							res.json({ success : true, user : newUser }); // TODO : remove password in response
 						}
 					});
 				}

@@ -19,12 +19,12 @@ module.exports = function () {
 
 		    require('./passport')(passport, _user.model);
 
-		    this.http.app.use(passport.initialize());
-		    this.http.app.use(passport.session());
-
 			this.users = {
 				roles : _user.data.roles
 			};
+
+			this.http.app.use(passport.initialize());
+			this.http.app.use(passport.session());
 		},
 
 		detach : function() {
