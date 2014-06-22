@@ -88,6 +88,8 @@ You can launch `grunt watch` to automatically re-copy or re-generate modified cl
 
 ### Server side
 
+TODO : update this part (using Broadway & plugins)
+
 ```
 server/
   |-server.js      --> main server file (require dependencies, configure & launch server)
@@ -125,4 +127,3 @@ Roadmap
 - Use angular $ressource
 - set up tests
 - Use [SemanticUI](http://semantic-ui.com/) in place of Bootstrap ?
-- Use [intravenous](http://www.royjacobs.org/intravenous/) for NodeJS dependency injection 
