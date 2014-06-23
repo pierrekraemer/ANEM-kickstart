@@ -1,41 +1,31 @@
 'use strict';
 
-module.exports = function (ctrl, userRoles) {
+module.exports = function (Ctrl, Users) {
 
 	return [
 
 		{
 			accessControl : 'public',
 			routes : [
-				{ verb : 'post', url : '/signin', fun : ctrl.signin },
-				{ verb : 'get', url : '/signout', fun : ctrl.signout },
-				{ verb : 'get', url : '/signedin', fun : ctrl.signedin }
+				{ verb : 'post', url : '/signin', fun : Ctrl.signin },
+				{ verb : 'get', url : '/signout', fun : Ctrl.signout },
+				{ verb : 'get', url : '/signedin', fun : Ctrl.signedin }
 			]
 		},
 
 		{
-			accessControl : function (req, res, next) {
-				if (req.isAuthenticated()) {
-					if (req.user.roles.indexOf(userRoles.admin) > -1) {
-						return next();
-					} else {
-						res.send(403, 'unauthorized resource');
-					}
-				} else {
-					res.send(401, 'authentication required');
-				}
-			},
+			accessControl : Users.filterAccess([ Users.roles.admin ]),
 			routes : [
-				{ verb : 'get', url : '/', fun : ctrl.getAll },
-				{ verb : 'get', url : '/count', fun : ctrl.count },
-				{ verb : 'get', url : '/:nbPerPage/:currentPage', fun : ctrl.getPage },
-				{ verb : 'get', url : '/:id', fun : ctrl.getById },
+				{ verb : 'get', url : '/', fun : Ctrl.getAll },
+				{ verb : 'get', url : '/count', fun : Ctrl.count },
+				{ verb : 'get', url : '/:nbPerPage/:currentPage', fun : Ctrl.getPage },
+				{ verb : 'get', url : '/:id', fun : Ctrl.getById },
 
-				{ verb : 'post', url : '/', fun : ctrl.create },
+				{ verb : 'post', url : '/', fun : Ctrl.create },
 
-				{ verb : 'put', url : '/:id', fun : ctrl.update },
+				{ verb : 'put', url : '/:id', fun : Ctrl.update },
 
-				{ verb : 'delete', url : '/:id', fun : ctrl.delete }
+				{ verb : 'delete', url : '/:id', fun : Ctrl.delete }
 			]
 		}
 

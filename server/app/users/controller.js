@@ -5,7 +5,7 @@ var passport = require('passport');
 module.exports = function (user) {
 
 	var User = user.model;
-	var USER_ROLES = user.data.roles;
+	var UserRoles = user.data.roles;
 
 	return {
 
@@ -90,7 +90,7 @@ module.exports = function (user) {
 					newUser.password  = User.generateHash(req.body.password);
 					newUser.firstname = req.body.firstname;
 					newUser.lastname  = req.body.lastname;
-					newUser.roles     = [ USER_ROLES.user ];
+					newUser.roles     = [ UserRoles.user ];
 
 					newUser.save(function (err) {
 						if (err) {

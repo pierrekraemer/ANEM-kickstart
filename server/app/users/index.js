@@ -8,6 +8,21 @@ module.exports = function () {
 		_ctrl,
 		_routes;
 
+	var _filterAccess = function (authorizedRoles) {
+		return function (req, res, next) {
+			if (req.isAuthenticated()) {
+				for (var i = 0; i < req.user.roles.length; i++) {
+					if (authorizedRoles.indexOf(req.user.roles[i]) > -1) {
+						return next();
+					}
+				}
+				res.send(403, 'unauthorized resource');
+			} else {
+				res.send(401, 'authentication required');
+			}
+		}
+	}
+
 	return {
 
 		name : 'users',
@@ -15,13 +30,16 @@ module.exports = function () {
 		attach : function (options) {
 			_user = require('./model')(this.db);
 			_ctrl = require('./controller')(_user);
-			_routes = require('./routes')(_ctrl, _user.data.roles);
-
-		    require('./passport')(passport, _user.model);
 
 			this.users = {
-				roles : _user.data.roles
+				model : _user.model,
+				roles : _user.data.roles,
+				filterAccess : _filterAccess
 			};
+
+			_routes = require('./routes')(_ctrl, this.users);
+
+		    require('./passport')(passport, _user.model);
 
 			this.http.app.use(passport.initialize());
 			this.http.app.use(passport.session());
@@ -32,23 +50,7 @@ module.exports = function () {
 		},
 
 		init : function (done) {
-			for (var i = 0; i < _routes.length; i++) {
-				var router = this.http.router();
-				var routesGroup = _routes[i];
-				if (routesGroup.accessControl !== 'public') {
-					router.use(routesGroup.accessControl);
-				}
-				for (var j = 0; j < routesGroup.routes.length; j++) {
-					var route = routesGroup.routes[j];
-					switch (route.verb) {
-						case 'get'    : router.get(route.url, route.fun); break;
-						case 'post'   : router.post(route.url, route.fun); break;
-						case 'put'    : router.put(route.url, route.fun); break;
-						case 'delete' : router.delete(route.url, route.fun); break;
-					}
-				}
-				this.http.app.use('/api/users', router);
-			}
+			this.loadRoutes(_routes, '/api/users');
 			return done();
 		}
 
