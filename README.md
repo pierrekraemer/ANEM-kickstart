@@ -61,8 +61,8 @@ server/
   |  |-db.js              --> configure database connection
   |  |-http.js            --> configure express
   |  |-users/
-  |  |  |-index.js
-  |  |  |-model.js        --> model (mongoDB schemas) is defined here
+  |  |  |-index.js        --> configure plugin (using following files)
+  |  |  |-model.js        --> model (mongoDB schema) is defined here
   |  |  |-controllers.js  --> application logic
   |  |  |-routes.js       --> routes definitions & access filtering
   |  |  |-passport.js     --> additional configuration..
