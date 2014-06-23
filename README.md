@@ -33,8 +33,7 @@ Presentation
 ------------
 
 `ANEM-kickstart` provides a starting point for an extensible web application using
-[NodeJS](http://nodejs.org/), [ExpressJS](http://expressjs.com/) and [MongoDB](http://www.mongodb.org/) on server side
-and [AngularJS](https://angularjs.org/) on client side.
+[NodeJS](http://nodejs.org/), [ExpressJS](http://expressjs.com/), [Broadway](http://flatironjs.org/#plugins) and [MongoDB](http://www.mongodb.org/) on server side and [AngularJS](https://angularjs.org/) on client side.
 
 It provides user management with local authentification.
 A user with 'admin' role gets access to a user administration section where he can create / update / delete users.
@@ -52,6 +51,27 @@ The password should be generated using bcrypt (you can use an online like [this 
 
 Structure
 ---------
+
+### Server side
+
+```
+server/
+  |-server.js             --> main server file (create Broadway app & load plugins)
+  |-app/                  --> application plugins
+  |  |-db.js              --> configure database connection
+  |  |-http.js            --> configure express
+  |  |-users/
+  |  |  |-index.js
+  |  |  |-model.js        --> model (mongoDB schemas) is defined here
+  |  |  |-controllers.js  --> application logic
+  |  |  |-routes.js       --> routes definitions & access filtering
+  |  |  |-passport.js     --> additional configuration..
+  |-common/               --> common services
+  |  |-loadRoutes.js      --> utility function for routes loading
+```
+
+The server must be relaunched to take code updates into account.
+This destroys current session, as sessions are not persisted for the moment.
 
 ### Client side
 
@@ -85,30 +105,6 @@ The `grunt` task creates a `public` directory that contains all the client files
 JavaScript and CSS are concatenated into `app_name.app_version.js` and `app_name.app_version.css` files.
 
 You can launch `grunt watch` to automatically re-copy or re-generate modified client side code.
-
-### Server side
-
-TODO : update this part (using Broadway & plugins)
-
-```
-server/
-  |-server.js      --> main server file (require dependencies, configure & launch server)
-  |-config/        --> configure middleware (static file server, logger, session, ...)
-  |-controllers/   --> controllers contain application logic
-  |  |-index.js
-  |  |-signin.js   --> each group of functionalities defines its functions
-  |  |-users.js        that are to be used by routes
-  |-db/
-  |  |-index.js    --> configure connection to mongoDB server and requires models
-  |  |-user.js     --> models (mongoDB schemas) are defined here
-  |-routes/
-  |  |-index.js
-  |  |-signin.js   --> each group of functionalities defines its routes
-  |  |-users.js        and can do authorization filtering
-```
-
-The server must be relaunched to take code updates into account.
-This destroys current session, as sessions are not persisted for the moment.
 
 
 Customize
