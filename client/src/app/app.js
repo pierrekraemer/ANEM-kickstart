@@ -53,7 +53,7 @@ angular.module('main', [
             .$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
                 if (angular.isDefined(toState.data) &&
                     angular.isDefined(toState.data.authorizedRoles)) {
-
+                    
                     if (!AuthService.isAuthenticated()) {
                         event.preventDefault();
                         $state.go('signin');

@@ -9,9 +9,9 @@ angular.module('main.admin.users', [
     'xeditable'
 ])
 
-.config(['$stateProvider', 'USER_ROLES',
+.config(['$stateProvider',
 
-    function ($stateProvider, USER_ROLES) {
+    function ($stateProvider) {
 
         $stateProvider
 

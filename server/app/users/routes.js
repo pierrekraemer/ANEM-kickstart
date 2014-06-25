@@ -7,6 +7,7 @@ module.exports = function (Ctrl, Users) {
 		{
 			accessControl : 'public',
 			routes : [
+				{ verb : 'get', url : '/roles', fun : Ctrl.getRoles },
 				{ verb : 'post', url : '/signin', fun : Ctrl.signin },
 				{ verb : 'get', url : '/signout', fun : Ctrl.signout },
 				{ verb : 'get', url : '/signedin', fun : Ctrl.signedin }
