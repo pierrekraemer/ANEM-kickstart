@@ -2,7 +2,7 @@
 
 angular.module('main.about', [
     'ui.router',
-    'menus'
+    'menu'
 ])
 
 .config(['$stateProvider',

@@ -4,7 +4,7 @@ angular.module('main.admin.users', [
     'ui.router',
     'ngResource',
     'userAuth',
-    'menus',
+    'menu',
     'ui.bootstrap',
     'xeditable'
 ])

@@ -3,7 +3,7 @@
 angular.module('main', [
     'ui.router',
     'userAuth',
-    'menus',
+    'menu',
     'main.home',
     'main.about',
     'main.user',
