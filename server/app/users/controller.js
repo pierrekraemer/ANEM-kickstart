@@ -1,6 +1,6 @@
 'use strict';
 
-var passport = require('passport');
+// var passport = require('passport');
 
 module.exports = function (user) {
 
@@ -9,28 +9,56 @@ module.exports = function (user) {
 
 	return {
 
+		getRoles : function (req, res, next) {
+			res.json(UserRoles);
+		},
+
         signin : function (req, res, next) {
-            passport.authenticate('local', function (err, user, info) {
-                if (err) {
-                    return next(err); // generate a 500 error
-                }
-                if (! user) {
-                    return res.json({ success : false, message : info.message });
-                }
-                req.login(user, function (err) {
-                    if (err)
-                        return next(err);
-                    return res.json({ success : true, message : info.message, user : user }); // TODO : remove password in response
-                });
-            })(req, res, next);
+        	var username = req.body.username || '';
+        	var password = req.body.password || '';
+
+			User
+			.findOne({ 'username' : username }, function (err, user) {
+				if (err) {
+					return res.send(401, 'authentication required');
+				}
+				if (!user) {
+					return res.json({ success : false, message : 'User not found !' });
+				}
+				if (!user.validPassword(password)) {
+					return res.json({ success : false, message : 'Wrong password !' });
+				}
+				var token = jwt.sign(user, 'thisismysecret', { expiresInMinutes: 60 });
+				return res.json({ success : true, user : user, token : token});
+			});
+
+            // passport.authenticate('local', function (err, user, info) {
+            //     if (err) {
+            //         return next(err); // generate a 500 error
+            //     }
+            //     if (! user) {
+            //         return res.json({ success : false, message : info.message });
+            //     }
+            //     req.login(user, function (err) {
+            //         if (err)
+            //             return next(err);
+            //         return res.json({ success : true, message : info.message, user : user }); // TODO : remove password in response
+            //     });
+            // })(req, res, next);
         },
 
         signedin : function (req, res) {
-            if (req.isAuthenticated()) {
-                res.json({ success : true, user : req.user });
-            } else {
-                res.json({ success : false });
-            }
+        	if (req.user) {
+        		return res.json({ success : true, user : req.user });
+        	} else {
+        		return res.json({ success : false });
+        	}
+
+            // if (req.isAuthenticated()) {
+            //     res.json({ success : true, user : req.user });
+            // } else {
+            //     res.json({ success : false });
+            // }
         },
 
         signout : function (req, res) {
@@ -61,7 +89,8 @@ module.exports = function (user) {
 		},
 
 		count : function (req, res) {
-			User.count(function (err, count) {
+			User
+			.count(function (err, count) {
 				res.json(count);
 			});
 		},

@@ -1,6 +1,6 @@
 'use strict';
 
-var passport = require('passport');
+// var passport = require('passport');
 
 module.exports = function () {
 
@@ -39,10 +39,10 @@ module.exports = function () {
 
 			_routes = require('./routes')(_ctrl, this.users);
 
-		    require('./passport')(passport, _user.model);
+		    // require('./passport')(passport, _user.model);
 
-			this.http.app.use(passport.initialize());
-			this.http.app.use(passport.session());
+			// this.http.app.use(passport.initialize());
+			// this.http.app.use(passport.session());
 		},
 
 		detach : function() {
