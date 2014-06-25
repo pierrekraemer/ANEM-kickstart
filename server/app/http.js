@@ -1,11 +1,11 @@
 'use strict';
 
 var express        = require('express');
-var jwt            = require('express-jwt');
+// var jwt            = require('express-jwt');
 var bodyParser     = require('body-parser');
 // var cookieParser   = require('cookie-parser');
 // var session        = require('express-session');
-var methodOverride = require('method-override');
+// var methodOverride = require('method-override');
 var favicon        = require('serve-favicon');
 var logger         = require('morgan');
 
@@ -35,7 +35,18 @@ module.exports = function () {
 			// _app.use(cookieParser());
 			_app.use(bodyParser());
 
-			_app.use(methodOverride());
+			_app.all('*', function (req, res, next) {
+				res.set('Access-Control-Allow-Origin', 'http://localhost');
+				res.set('Access-Control-Allow-Credentials', true);
+				res.set('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
+				res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization');
+				if (req.method == 'OPTIONS') {
+					return res.send(200);
+				}
+				next();
+			});
+
+			// _app.use(methodOverride());
 
 			// _app.use(session({
 			// 	secret: 'thisismysecret',
@@ -43,7 +54,7 @@ module.exports = function () {
 			// }));
 
 			this.on('load', function () {
-				_app.all('/*', function(req, res) {
+				_app.all('/*', function (req, res) {
 					res.sendfile(_publicPath + '/index.html');
 				});
 

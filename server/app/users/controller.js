@@ -1,5 +1,7 @@
 'use strict';
 
+var jsonwebtoken = require('jsonwebtoken');
+var secret       = require('../../common/secret');
 // var passport = require('passport');
 
 module.exports = function (user) {
@@ -10,7 +12,7 @@ module.exports = function (user) {
 	return {
 
 		getRoles : function (req, res, next) {
-			res.json(UserRoles);
+			return res.json(UserRoles);
 		},
 
         signin : function (req, res, next) {
@@ -28,7 +30,7 @@ module.exports = function (user) {
 				if (!user.validPassword(password)) {
 					return res.json({ success : false, message : 'Wrong password !' });
 				}
-				var token = jwt.sign(user, 'thisismysecret', { expiresInMinutes: 60 });
+				var token = jsonwebtoken.sign({ id : user._id }, secret, { expiresInMinutes: 60 });
 				return res.json({ success : true, user : user, token : token});
 			});
 
@@ -62,8 +64,8 @@ module.exports = function (user) {
         },
 
         signout : function (req, res) {
-            req.logout();
-            res.send(200);
+            delete req.user;
+            return res.send(200);
         },
 
 		getAll : function (req, res) {

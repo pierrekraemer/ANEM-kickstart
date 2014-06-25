@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (Ctrl, Users) {
+module.exports = function (Ctrl, userRoles, filterAccess) {
 
 	return [
 
@@ -15,7 +15,7 @@ module.exports = function (Ctrl, Users) {
 		},
 
 		{
-			accessControl : Users.filterAccess([ Users.roles.admin ]),
+			accessControl : filterAccess([ userRoles.admin ]),
 			routes : [
 				{ verb : 'get', url : '/', fun : Ctrl.getAll },
 				{ verb : 'get', url : '/count', fun : Ctrl.count },

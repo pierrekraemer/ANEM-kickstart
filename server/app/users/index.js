@@ -8,21 +8,6 @@ module.exports = function () {
 		_ctrl,
 		_routes;
 
-	var _filterAccess = function (authorizedRoles) {
-		return function (req, res, next) {
-			if (req.isAuthenticated()) {
-				for (var i = 0; i < req.user.roles.length; i++) {
-					if (authorizedRoles.indexOf(req.user.roles[i]) > -1) {
-						return next();
-					}
-				}
-				res.send(403, 'unauthorized resource');
-			} else {
-				res.send(401, 'authentication required');
-			}
-		}
-	}
-
 	return {
 
 		name : 'users',
@@ -33,11 +18,10 @@ module.exports = function () {
 
 			this.users = {
 				model : _user.model,
-				roles : _user.data.roles,
-				filterAccess : _filterAccess
+				roles : _user.data.roles
 			};
 
-			_routes = require('./routes')(_ctrl, this.users);
+			_routes = require('./routes')(_ctrl, this.users.roles, this.filterAccessFactory);
 
 		    // require('./passport')(passport, _user.model);
 

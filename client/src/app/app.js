@@ -13,11 +13,12 @@ angular.module('main', [
 
 .constant('APP_NAME', 'ANEM-kickstart')
 
-.config(['$urlRouterProvider', '$locationProvider',
+.config(['$urlRouterProvider', '$locationProvider', '$httpProvider',
 
-    function ($urlRouterProvider, $locationProvider) {
+    function ($urlRouterProvider, $locationProvider, $httpProvider) {
         $urlRouterProvider.otherwise("/");
         $locationProvider.html5Mode(true);
+        $httpProvider.interceptors.push('TokenInterceptor');
     }
 ])
 
@@ -53,7 +54,7 @@ angular.module('main', [
             .$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
                 if (angular.isDefined(toState.data) &&
                     angular.isDefined(toState.data.authorizedRoles)) {
-                    
+
                     if (!AuthService.isAuthenticated()) {
                         event.preventDefault();
                         $state.go('signin');
