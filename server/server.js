@@ -17,6 +17,6 @@ app.use(require('./app/users')());
 
 app.init(function (err) {
 
-    app.emit('load');
+    app.emit('allPluginsInitDone');
 
 });

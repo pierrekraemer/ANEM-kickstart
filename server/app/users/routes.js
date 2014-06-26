@@ -1,32 +1,41 @@
 'use strict';
 
-module.exports = function (Ctrl, userRoles, filterAccess) {
+module.exports = function (Ctrl, userRoles, generateAccessFilter) {
 
 	return [
 
 		{
+			checkAuthorization : false,
 			accessControl : 'public',
 			routes : [
-				{ verb : 'get', url : '/roles', fun : Ctrl.getRoles },
-				{ verb : 'post', url : '/signin', fun : Ctrl.signin },
-				{ verb : 'get', url : '/signout', fun : Ctrl.signout },
-				{ verb : 'get', url : '/signedin', fun : Ctrl.signedin }
+				{ verb : 'get', url : '/roles', func : Ctrl.getRoles },
+				{ verb : 'post', url : '/signin', func : Ctrl.signin }
 			]
 		},
 
 		{
-			accessControl : filterAccess([ userRoles.admin ]),
+			checkAuthorization : true,
+			accessControl : generateAccessFilter([ userRoles.user ]),
 			routes : [
-				{ verb : 'get', url : '/', fun : Ctrl.getAll },
-				{ verb : 'get', url : '/count', fun : Ctrl.count },
-				{ verb : 'get', url : '/:nbPerPage/:currentPage', fun : Ctrl.getPage },
-				{ verb : 'get', url : '/:id', fun : Ctrl.getById },
+				// { verb : 'get', url : '/signout', func : Ctrl.signout },
+				{ verb : 'get', url : '/whoami', func : Ctrl.whoami }
+			]
+		},
 
-				{ verb : 'post', url : '/', fun : Ctrl.create },
+		{
+			checkAuthorization : true,
+			accessControl : generateAccessFilter([ userRoles.admin ]),
+			routes : [
+				{ verb : 'get', url : '/', func : Ctrl.getAll },
+				{ verb : 'get', url : '/count', func : Ctrl.count },
+				{ verb : 'get', url : '/:nbPerPage/:currentPage', func : Ctrl.getPage },
+				{ verb : 'get', url : '/:id', func : Ctrl.getById },
 
-				{ verb : 'put', url : '/:id', fun : Ctrl.update },
+				{ verb : 'post', url : '/', func : Ctrl.create },
 
-				{ verb : 'delete', url : '/:id', fun : Ctrl.delete }
+				{ verb : 'put', url : '/:id', func : Ctrl.update },
+
+				{ verb : 'delete', url : '/:id', func : Ctrl.delete }
 			]
 		}
 

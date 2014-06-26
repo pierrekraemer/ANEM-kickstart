@@ -1,13 +1,9 @@
 'use strict';
 
-var express        = require('express');
-// var jwt            = require('express-jwt');
-var bodyParser     = require('body-parser');
-// var cookieParser   = require('cookie-parser');
-// var session        = require('express-session');
-// var methodOverride = require('method-override');
-var favicon        = require('serve-favicon');
-var logger         = require('morgan');
+var express    = require('express');
+var bodyParser = require('body-parser');
+var favicon    = require('serve-favicon');
+var logger     = require('morgan');
 
 module.exports = function () {
 
@@ -32,7 +28,6 @@ module.exports = function () {
 
 			_app.use(logger('dev'));
 
-			// _app.use(cookieParser());
 			_app.use(bodyParser());
 
 			_app.all('*', function (req, res, next) {
@@ -46,14 +41,7 @@ module.exports = function () {
 				next();
 			});
 
-			// _app.use(methodOverride());
-
-			// _app.use(session({
-			// 	secret: 'thisismysecret',
-			// 	cookie: { maxAge: (86400 * 1000) } // 24h
-			// }));
-
-			this.on('load', function () {
+			this.on('allPluginsInitDone', function () {
 				_app.all('/*', function (req, res) {
 					res.sendfile(_publicPath + '/index.html');
 				});

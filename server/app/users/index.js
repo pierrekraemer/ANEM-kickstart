@@ -1,7 +1,5 @@
 'use strict';
 
-// var passport = require('passport');
-
 module.exports = function () {
 
 	var _user,
@@ -21,12 +19,7 @@ module.exports = function () {
 				roles : _user.data.roles
 			};
 
-			_routes = require('./routes')(_ctrl, this.users.roles, this.filterAccessFactory);
-
-		    // require('./passport')(passport, _user.model);
-
-			// this.http.app.use(passport.initialize());
-			// this.http.app.use(passport.session());
+			_routes = require('./routes')(_ctrl, this.users.roles, this.generateAccessFilter);
 		},
 
 		detach : function() {

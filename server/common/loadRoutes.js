@@ -5,15 +5,17 @@ var secret = require('./secret');
 
 module.exports = function () {
 
+    var _http;
+
     return {
 
         name : 'loadRoutes',
 
         attach : function (options) {
 
-            var http = this.http;
+            _http = this.http;
 
-            this.filterAccessFactory = function (authorizedRoles) {
+            this.generateAccessFilter = function (authorizedRoles) {
                 return function (req, res, next) {
                     if (req.user) {
                         for (var i = 0; i < req.user.roles.length; i++) {
@@ -30,22 +32,24 @@ module.exports = function () {
 
             this.loadRoutes = function (routes, routesRoot) {
                 for (var i = 0; i < routes.length; i++) {
-                    var router = http.router();
+                    var router = _http.router();
                     var routesGroup = routes[i];
-                    if (routesGroup.accessControl !== 'public') {
+                    if (routesGroup.checkAuthorization) {
                         router.use(jwt({ secret : secret }));
+                    }
+                    if (routesGroup.accessControl !== 'public') {
                         router.use(routesGroup.accessControl);
                     }
                     for (var j = 0; j < routesGroup.routes.length; j++) {
                         var route = routesGroup.routes[j];
                         switch (route.verb) {
-                            case 'get'    : router.get(route.url, route.fun); break;
-                            case 'post'   : router.post(route.url, route.fun); break;
-                            case 'put'    : router.put(route.url, route.fun); break;
-                            case 'delete' : router.delete(route.url, route.fun); break;
+                            case 'get'    : router.get(route.url, route.func); break;
+                            case 'post'   : router.post(route.url, route.func); break;
+                            case 'put'    : router.put(route.url, route.func); break;
+                            case 'delete' : router.delete(route.url, route.func); break;
                         }
                     }
-                    http.app.use(routesRoot, router);
+                    _http.app.use(routesRoot, router);
                 }
             };
 
@@ -56,6 +60,13 @@ module.exports = function () {
         },
 
         init : function (done) {
+            // _http.app.error(function (err, req, res) {
+            //     if (err instanceof UnauthorizedError) {
+            //         if (err.code == 'credentials_required') {
+            //             res.json({ success : false });
+            //         }
+            //     }
+            // });
             return done();
         }
 
