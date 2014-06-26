@@ -36,6 +36,7 @@ Presentation
 [NodeJS](http://nodejs.org/), [ExpressJS](http://expressjs.com/), [Broadway](http://flatironjs.org/#plugins) and [MongoDB](http://www.mongodb.org/) on server side and [AngularJS](https://angularjs.org/) on client side.
 
 It provides user management with local authentification.
+Authentication is performed using a JsonWebToken.
 A user with 'admin' role gets access to a user administration section where he can create / update / delete users.
 
 To create a first user manually in the database, do the following:
@@ -71,7 +72,6 @@ server/
 ```
 
 The server must be relaunched to take code updates into account.
-This destroys current session, as sessions are not persisted for the moment.
 
 ### Client side
 
