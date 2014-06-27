@@ -38,13 +38,19 @@ module.exports = function (user) {
 					roles : user.roles,
 				};
 
-				var token = jsonwebtoken.sign(userWOpw, secret, { expiresInMinutes: 60 });
+				var token = jsonwebtoken.sign({ id : user._id, roles : user.roles }, secret, { expiresInMinutes: 60 });
+
 				return res.json({ user : userWOpw, token : token});
 			});
         },
 
         whoami : function (req, res) {
-        	return res.json({ user : req.user });
+			User
+			.findById(req.user.id)
+			.select('-password')
+			.exec(function (err, user) {
+				res.json(user);
+			});
         },
 
         // signout : function (req, res) {

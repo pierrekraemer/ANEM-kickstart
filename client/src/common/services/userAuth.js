@@ -59,25 +59,12 @@ angular.module('userAuth', [])
                 );
             },
 
-            signout : function () {
-                delete $window.sessionStorage.token;
-                _user = null;
-            },
-
-            currentUser : function () {
-                return _user;
-            },
-
-            hasAuthToken : function () {
-                return angular.isDefined($window.sessionStorage.token);
-            },
-
             tryRemoteAuth : function () {
                 return $http
                 .get('/api/users/whoami')
                 .then(
                     function (res) {
-                        _user = res.data.user;
+                        _user = res.data;
                         return true;
                     },
                     function (res) {
@@ -85,6 +72,15 @@ angular.module('userAuth', [])
                         return false;
                     }
                 );
+            },
+
+            signout : function () {
+                delete $window.sessionStorage.token;
+                _user = null;
+            },
+
+            currentUser : function () {
+                return _user;
             },
 
             isAuthenticated : function () {
