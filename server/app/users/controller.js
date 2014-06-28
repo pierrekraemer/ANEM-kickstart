@@ -38,7 +38,16 @@ module.exports = function (user) {
 					roles : user.roles,
 				};
 
-				var token = jsonwebtoken.sign({ id : user._id, roles : user.roles }, secret, { expiresInMinutes: 60 });
+				var token = jsonwebtoken.sign(
+					{
+						id : user._id,
+						roles : user.roles
+					},
+					secret,
+					{
+						expiresInMinutes: 60
+					}
+				);
 
 				return res.json({ user : userWOpw, token : token});
 			});
@@ -49,7 +58,11 @@ module.exports = function (user) {
 			.findById(req.user.id)
 			.select('-password')
 			.exec(function (err, user) {
-				res.json(user);
+				if (err) {
+					res.send(500);
+				} else {
+					res.json(user);
+				}
 			});
         },
 
@@ -64,7 +77,11 @@ module.exports = function (user) {
 			.select('-password')
 			.sort('username')
 			.exec(function (err, users) {
-				res.json(users);
+				if (err) {
+					res.send(500);
+				} else {
+					res.json(users);
+				}
 			});
 		},
 
@@ -76,14 +93,22 @@ module.exports = function (user) {
 			.skip((req.params.currentPage - 1) * req.params.nbPerPage)
 			.limit(req.params.nbPerPage)
 			.exec(function (err, users) {
-				res.json(users);
+				if (err) {
+					res.send(500);
+				} else {
+					res.json(users);
+				}
 			});
 		},
 
 		count : function (req, res) {
 			User
 			.count(function (err, count) {
-				res.json(count);
+				if (err) {
+					res.send(500);
+				} else {
+					res.json(count);
+				}
 			});
 		},
 
@@ -92,7 +117,11 @@ module.exports = function (user) {
 			.findById(req.params.id)
 			.select('-password')
 			.exec(function (err, user) {
-				res.json(user);
+				if (err) {
+					res.send(500);
+				} else {
+					res.json(user);
+				}
 			});
 		},
 
@@ -100,10 +129,10 @@ module.exports = function (user) {
 			User
 			.findOne({ 'username' : req.body.username }, function (err, user) {
 				if (err) {
-					res.json({ success : false });
+					res.send(500);
 				}
 				if (user) {
-					res.json({ success : false, message : 'Username already taken.' });
+					res.send(400, { message : 'Username ' + req.body.username + 'already taken.' });
 				} else {
 					var newUser = new User();
 
@@ -115,9 +144,9 @@ module.exports = function (user) {
 
 					newUser.save(function (err) {
 						if (err) {
-							res.json({ success : false });
+							res.send(500);
 						} else {
-							res.json({ success : true, user : newUser }); // TODO : remove password in response
+							res.json({ user : newUser }); // TODO : remove password in response
 						}
 					});
 				}
@@ -131,9 +160,9 @@ module.exports = function (user) {
 			User
 			.findByIdAndUpdate(req.params.id, req.body, function (err) {
 				if (err) {
-					res.json({ success : false });
+					res.send(500);
 				} else {
-					res.json({ success : true });
+					res.send(200);
 				}
 			});
 		},
@@ -142,9 +171,9 @@ module.exports = function (user) {
 			User
 			.findByIdAndRemove(req.params.id, function (err) {
 				if (err) {
-					res.json({ success : false });
+					res.send(500);
 				} else {
-					res.json({ success : true });
+					res.send(200);
 				}
 			});
 		}

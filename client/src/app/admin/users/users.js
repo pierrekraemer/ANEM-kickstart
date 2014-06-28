@@ -40,25 +40,38 @@ angular.module('main.admin.users', [
 
 ])
 
-// .factory('Users', ['$resource',
-//
-//     function ($resource) {
-//         return $resource('/api/admin/users/:id',
-//         {
-//             id : '@_id'
-//         },
-//         {
-//             update : {
-//                 method : 'PUT'
-//             }
-//         });
-//     }
-//
-// ])
+.factory('Users', ['$http',
 
-.controller('AdminUserCtrl', ['$scope', '$http', '$modal',
+    function ($http) {
+        return {
+            count : function () {
+                return $http
+                .get('/api/users/count');
+            },
+            getPage : function (nbUsersPerPage, numPage) {
+                return $http
+                .get('/api/users/' + nbUsersPerPage + '/' + numPage);
+            },
+            create : function (user) {
+                return $http
+                .post('/api/users', user);
+            },
+            update : function (userId, data) {
+                return $http
+                .put('/api/users/' + userId, data)
+            },
+            delete : function (userId) {
+                return $http
+                .delete('/api/users/' + userId);
+            }
+        };
+    }
 
-    function ($scope, $http, $modal) {
+])
+
+.controller('AdminUserCtrl', ['$scope', '$modal', 'Users',
+
+    function ($scope, $modal, Users) {
 
         $scope.showAddUser = false;
         $scope.addUserFormData = {};
@@ -69,15 +82,15 @@ angular.module('main.admin.users', [
         $scope.nbUsersPages = 0;
         $scope.currentUsersPage = 1;
 
-        $http
-        .get('/api/users/count')
+        Users
+        .count()
         .then(function (res) {
             $scope.totalNbUsers = res.data;
         });
 
         function updateUsersList () {
-            $http
-            .get('/api/users/' + $scope.nbUsersPerPage + '/' + $scope.currentUsersPage)
+            Users
+            .getPage($scope.nbUsersPerPage, $scope.currentUsersPage)
             .then(function (res) {
                 $scope.users = res.data;
             });
@@ -86,11 +99,7 @@ angular.module('main.admin.users', [
         updateUsersList();
 
         $scope.userPageChanged = function () {
-            $http
-            .get('/api/users/' + $scope.nbUsersPerPage + '/' + $scope.currentUsersPage)
-            .then(function (res) {
-                $scope.users = res.data;
-            });
+            updateUsersList();
         };
 
         $scope.addUser = function () {
@@ -98,41 +107,36 @@ angular.module('main.admin.users', [
                 $scope.passwordConfirmError = true;
             } else {
                 $scope.passwordConfirmError = false;
-                $http
-                .post('/api/users', $scope.addUserFormData)
+                Users
+                .create($scope.addUserFormData)
                 .then(function (res) {
-                    if (res.data.success) {
-                        $scope.addUserFormData = {};
-                        $scope.totalNbUsers++;
-                        updateUsersList();
-                    }
+                    $scope.addUserFormData = {};
+                    $scope.totalNbUsers++;
+                    updateUsersList();
                 });
             }
         };
 
         $scope.updateUser = function (user, prop, value) {
-            if (user.hasOwnProperty(prop)) {
-                var updateData = {};
-                updateData[prop] = value;
+            var updateData = {};
+            updateData[prop] = value;
 
-                $http
-                .put('/api/users/' + user._id, updateData)
-                .then(function (res) {
-                    return res.data.success;
-                });
-            }
+            Users
+            .update(user._id, updateData)
+            .then(
+                function (res) { return true; },
+                function (res) { return false; }
+            );
         };
 
         $scope.addUserRole = function (user, role) {
             if (role && user.roles.indexOf(role) < 0) {
                 var new_roles = user.roles.slice(0);
                 new_roles.push(role);
-                $http
-                .put('/api/users/' + user._id, { roles : new_roles })
+                Users
+                .update(user._id, { roles : new_roles })
                 .then(function (res) {
-                    if (res.data.success) {
-                        user.roles.push(role);
-                    }
+                    user.roles.push(role);
                 });
             }
         };
@@ -142,12 +146,10 @@ angular.module('main.admin.users', [
             if (index > -1) {
                 var new_roles = user.roles.slice(0);
                 new_roles.splice(index, 1);
-                $http
-                .put('/api/users/' + user._id, { roles : new_roles })
+                Users
+                .update(user._id, { roles : new_roles })
                 .then(function (res) {
-                    if (res.data.success) {
-                        user.roles.splice(index, 1);
-                    }
+                    user.roles.splice(index, 1);
                 });
             }
         };
@@ -163,13 +165,11 @@ angular.module('main.admin.users', [
             });
 
             confirmation.result.then(function () {
-                $http
-                .delete('/api/users/' + user._id)
+                Users
+                .delete(user._id)
                 .then(function (res) {
-                    if (res.data.success) {
-                        $scope.totalNbUsers--;
-                        updateUsersList();
-                    }
+                    $scope.totalNbUsers--;
+                    updateUsersList();
                 });
             });
         };
