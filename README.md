@@ -120,6 +120,5 @@ To change the name of the application, you should change:
 Roadmap
 -------
 
-- Use angular $ressource
 - set up tests
 - Use [SemanticUI](http://semantic-ui.com/) in place of Bootstrap ?
