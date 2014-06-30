@@ -5,7 +5,7 @@ module.exports = function (Ctrl, userRoles, generateAccessFilter) {
 	return [
 
 		{
-			checkAuthorization : false,
+			checkAuthorizationToken : false,
 			accessControl : 'public',
 			routes : [
 				{ verb : 'get', url : '/roles', func : Ctrl.getRoles },
@@ -14,7 +14,7 @@ module.exports = function (Ctrl, userRoles, generateAccessFilter) {
 		},
 
 		{
-			checkAuthorization : true,
+			checkAuthorizationToken : true,
 			accessControl : generateAccessFilter([ userRoles.user ]),
 			routes : [
 				// { verb : 'get', url : '/signout', func : Ctrl.signout },
@@ -23,7 +23,7 @@ module.exports = function (Ctrl, userRoles, generateAccessFilter) {
 		},
 
 		{
-			checkAuthorization : true,
+			checkAuthorizationToken : true,
 			accessControl : generateAccessFilter([ userRoles.admin ]),
 			routes : [
 				{ verb : 'get', url : '/', func : Ctrl.getAll },

@@ -7,7 +7,7 @@ angular.module('userAuth', [])
     admin : 'admin'
 })
 
-.factory('TokenInterceptor', [ '$window',
+.factory('JWTInterceptor', [ '$window',
 
     function ($window) {
         return {

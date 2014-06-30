@@ -18,7 +18,7 @@ angular.module('main', [
     function ($urlRouterProvider, $locationProvider, $httpProvider) {
         $urlRouterProvider.otherwise("/");
         $locationProvider.html5Mode(true);
-        $httpProvider.interceptors.push('TokenInterceptor');
+        $httpProvider.interceptors.push('JWTInterceptor');
     }
 ])
 

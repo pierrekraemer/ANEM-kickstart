@@ -34,7 +34,7 @@ module.exports = function () {
                 for (var i = 0; i < routes.length; i++) {
                     var router = _http.router();
                     var routesGroup = routes[i];
-                    if (routesGroup.checkAuthorization) {
+                    if (routesGroup.checkAuthorizationToken) {
                         router.use(jwt({ secret : secret }));
                     }
                     if (routesGroup.accessControl !== 'public') {
@@ -42,12 +42,7 @@ module.exports = function () {
                     }
                     for (var j = 0; j < routesGroup.routes.length; j++) {
                         var route = routesGroup.routes[j];
-                        switch (route.verb) {
-                            case 'get'    : router.get(route.url, route.func); break;
-                            case 'post'   : router.post(route.url, route.func); break;
-                            case 'put'    : router.put(route.url, route.func); break;
-                            case 'delete' : router.delete(route.url, route.func); break;
-                        }
+                        router[route.verb](route.url, route.func);
                     }
                     _http.app.use(routesRoot, router);
                 }
