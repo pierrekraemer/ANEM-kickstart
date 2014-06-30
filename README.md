@@ -35,7 +35,7 @@ Presentation
 `ANEM-kickstart` provides a starting point for an extensible web application using
 [NodeJS](http://nodejs.org/), [ExpressJS](http://expressjs.com/), [Broadway](http://flatironjs.org/#plugins) and [MongoDB](http://www.mongodb.org/) on server side and [AngularJS](https://angularjs.org/) on client side.
 
-It provides user management with local authentification.
+It provides user management with local authentication.
 Authentication is performed using a JsonWebToken.
 A user with 'admin' role gets access to a user administration section where he can create / update / delete users.
 
@@ -66,7 +66,6 @@ server/
   |  |  |-model.js        --> model (mongoDB schema) is defined here
   |  |  |-controllers.js  --> application logic
   |  |  |-routes.js       --> routes definitions & access filtering
-  |  |  |-passport.js     --> additional configuration..
   |-common/               --> common services
   |  |-loadRoutes.js      --> utility function for routes loading
 ```
