@@ -6,7 +6,7 @@ var secret       = require('../../common/secret');
 module.exports = function (user) {
 
 	var User = user.model;
-	var UserRoles = user.data.roles;
+	var UserRoles = user.roles;
 
 	return {
 
