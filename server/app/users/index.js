@@ -2,21 +2,19 @@
 
 module.exports = function () {
 
-	var _user,
-		_ctrl,
-		_routes;
+	var _ctrl;
 
 	return {
 
 		name : 'users',
 
 		attach : function (options) {
-			_user = require('./model')(this.db);
-			_ctrl = require('./controller')(_user);
+			var user = require('./model')(this.db);
+			_ctrl = require('./controller')(user);
 
 			this.users = {
-				model : _user.model,
-				roles : _user.data.roles
+				model : user.model,
+				roles : user.data.roles
 			};
 		},
 
@@ -25,8 +23,8 @@ module.exports = function () {
 		},
 
 		init : function (done) {
-			_routes = require('./routes')(_ctrl, this.users.roles, this.generateAccessFilter);
-			this.loadRoutes(_routes, '/api/users');
+			var routes = require('./routes')(_ctrl, this.users.roles, this.generateAccessFilter);
+			this.loadRoutes(routes, '/api/users');
 			return done();
 		}
 
