@@ -31,11 +31,19 @@ module.exports = function () {
             };
 
             this.loadRoutes = function (routes, routesRoot) {
+                var userModel = this.users.model;
                 for (var i = 0; i < routes.length; i++) {
                     var router = _http.router();
                     var routesGroup = routes[i];
                     if (routesGroup.checkAuthorizationToken) {
                         router.use(jwt({ secret : secret }));
+                        router.use(function (req, res, next) {
+                            userModel
+                            .findById(req.user.id, function (err, user) {
+                                req.user = user;
+                                next();
+                            });
+                        });
                     }
                     if (routesGroup.accessControl !== 'public') {
                         router.use(routesGroup.accessControl);

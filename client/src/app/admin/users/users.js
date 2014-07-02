@@ -2,7 +2,6 @@
 
 angular.module('main.admin.users', [
     'ui.router',
-    'ngResource',
     'userAuth',
     'menu',
     'ui.bootstrap',

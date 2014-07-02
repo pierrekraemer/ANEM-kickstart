@@ -40,8 +40,8 @@ module.exports = function (user) {
 
 				var token = jsonwebtoken.sign(
 					{
-						id : user._id,
-						roles : user.roles
+						id : user._id
+						// roles : user.roles
 					},
 					secret,
 					{
@@ -132,7 +132,7 @@ module.exports = function (user) {
 					res.send(500);
 				}
 				if (user) {
-					res.send(400, { message : 'Username ' + req.body.username + 'already taken.' });
+					res.send(400, { message : 'Username ' + req.body.username + ' already taken.' });
 				} else {
 					var newUser = new User();
 
@@ -146,7 +146,7 @@ module.exports = function (user) {
 						if (err) {
 							res.send(500);
 						} else {
-							res.json({ user : newUser }); // TODO : remove password in response
+							res.send(200);
 						}
 					});
 				}

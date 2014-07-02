@@ -18,8 +18,6 @@ module.exports = function () {
 				model : _user.model,
 				roles : _user.data.roles
 			};
-
-			_routes = require('./routes')(_ctrl, this.users.roles, this.generateAccessFilter);
 		},
 
 		detach : function() {
@@ -27,6 +25,7 @@ module.exports = function () {
 		},
 
 		init : function (done) {
+			_routes = require('./routes')(_ctrl, this.users.roles, this.generateAccessFilter);
 			this.loadRoutes(_routes, '/api/users');
 			return done();
 		}
