@@ -28,7 +28,7 @@ module.exports = function () {
 
 			_app.use(logger('dev'));
 
-			_app.use(bodyParser());
+			_app.use(bodyParser.json());
 
 			_app.all('*', function (req, res, next) {
 				res.set('Access-Control-Allow-Origin', 'http://localhost');
