@@ -47,7 +47,7 @@ $ use ANEM-kickstart
 $ db.users.insert({ firstname:'Bla', lastname:'Bla', username:'bla', password:'', roles:['user','admin'] })
 ```
 
-The password should be generated using bcrypt (you can use an online like [this one](http://bcrypthashgenerator.apphb.com/)).
+The password should be generated using bcrypt (you can use an online tool like [this one](http://bcrypthashgenerator.apphb.com/)).
 
 
 Structure
