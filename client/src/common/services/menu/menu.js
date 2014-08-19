@@ -81,4 +81,17 @@ angular.module('menu', [])
     }
 )
 
+.directive('myMenu',
+
+    function () {
+
+        return {
+            restrict    : 'AE',
+            templateUrl : 'views/common/menu.view.html'
+        };
+
+    }
+
+)
+
 ;

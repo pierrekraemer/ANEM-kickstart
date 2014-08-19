@@ -29,20 +29,8 @@
 	    </div>
 
         <div class="navbar-collapse" collapse="menuCollapsed">
-    	    <ul class="nav navbar-nav">
-                <li ng-repeat="item in menuItems" ng-if="item.public || isAuthorized(item.roles)" ng-switch="item.type" dropdown="item.type === 'dropdown'">
-                    <a ng-switch-when="item" ui-sref="{{ item.state }}"> {{ item.title }} </a>
-                    <a ng-switch-when="dropdown" href="" class="dropdown-toggle" data-toggle="dropdown">
-                        {{ item.title }}
-                        <b class="caret"></b>
-                    </a>
-                    <ul ng-switch-when="dropdown" class="dropdown-menu">
-                        <li ng-repeat="subitem in item.subMenuItems" ng-if="subitem.public || isAuthorized(subitem.roles)">
-                            <a ui-sref="{{ subitem.state }}"> {{ subitem.title }} </a>
-                        </li>
-                    </ul>
-                </li>
-    	    </ul>
+
+            <my-menu></my-menu>
 
             <ul class="nav navbar-nav navbar-right">
                 <li ng-if="!isAuthenticated()"> <a ui-sref="signin"> Sign in </a> </li>
