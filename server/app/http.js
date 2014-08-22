@@ -43,7 +43,7 @@ module.exports = function () {
 
 			this.on('allPluginsInitDone', function () {
 				_app.all('/*', function (req, res) {
-					res.sendfile(_publicPath + '/index.html');
+					res.sendFile(_publicPath + '/index.html');
 				});
 
 				var server = _app.listen(3000, function () {

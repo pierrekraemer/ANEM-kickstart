@@ -21,13 +21,13 @@ module.exports = function (user) {
 			User
 			.findOne({ 'username' : username }, function (err, user) {
 				if (err) {
-					return res.send(401, { message : 'authentication required' });
+					return res.status(401).send({ message : 'authentication required' });
 				}
 				if (!user) {
-					return res.send(401, { message : 'User not found !' });
+					return res.status(401).send({ message : 'User not found !' });
 				}
 				if (!user.validPassword(password)) {
-					return res.send(401, { message : 'Wrong password !' });
+					return res.status(401).send({ message : 'Wrong password !' });
 				}
 
 				var userWOpw = {
@@ -59,7 +59,7 @@ module.exports = function (user) {
 			.select('-password')
 			.exec(function (err, user) {
 				if (err) {
-					res.send(500);
+					res.status(500).end();
 				} else {
 					res.json(user);
 				}
@@ -78,7 +78,7 @@ module.exports = function (user) {
 			.sort('username')
 			.exec(function (err, users) {
 				if (err) {
-					res.send(500);
+					res.status(500).end();
 				} else {
 					res.json(users);
 				}
@@ -94,7 +94,7 @@ module.exports = function (user) {
 			.limit(req.params.nbPerPage)
 			.exec(function (err, users) {
 				if (err) {
-					res.send(500);
+					res.status(500).end();
 				} else {
 					res.json(users);
 				}
@@ -105,7 +105,7 @@ module.exports = function (user) {
 			User
 			.count(function (err, count) {
 				if (err) {
-					res.send(500);
+					res.status(500).end();
 				} else {
 					res.json(count);
 				}
@@ -118,7 +118,7 @@ module.exports = function (user) {
 			.select('-password')
 			.exec(function (err, user) {
 				if (err) {
-					res.send(500);
+					res.status(500).end();
 				} else {
 					res.json(user);
 				}
@@ -129,10 +129,10 @@ module.exports = function (user) {
 			User
 			.findOne({ 'username' : req.body.username }, function (err, user) {
 				if (err) {
-					res.send(500);
+					res.status(500).end();
 				}
 				if (user) {
-					res.send(400, { message : 'Username ' + req.body.username + ' already taken.' });
+					res.status(400).send({ message : 'Username ' + req.body.username + ' already taken.' });
 				} else {
 					var newUser = new User();
 
@@ -144,9 +144,9 @@ module.exports = function (user) {
 
 					newUser.save(function (err) {
 						if (err) {
-							res.send(500);
+							res.status(500).end();
 						} else {
-							res.send(200);
+							res.status(200).end();
 						}
 					});
 				}
@@ -160,9 +160,9 @@ module.exports = function (user) {
 			User
 			.findByIdAndUpdate(req.params.id, req.body, function (err) {
 				if (err) {
-					res.send(500);
+					res.status(500).end();
 				} else {
-					res.send(200);
+					res.status(200).end();
 				}
 			});
 		},
@@ -171,9 +171,9 @@ module.exports = function (user) {
 			User
 			.findByIdAndRemove(req.params.id, function (err) {
 				if (err) {
-					res.send(500);
+					res.status(500).end();
 				} else {
-					res.send(200);
+					res.status(200).end();
 				}
 			});
 		}

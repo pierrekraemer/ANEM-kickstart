@@ -10,21 +10,21 @@
 	"private": true,
 	"dependencies": {
 		"broadway": "0.2.x",
-		"express": "4.6.x",
+		"express": "4.8.x",
 		"body-parser" : "1.4.x",
 		"jsonwebtoken" : "0.4.x",
 		"express-jwt" : "0.3.x",
 		"serve-favicon" : "2.0.x",
 		"mongoose" : "3.8.x",
 		"bcrypt-nodejs" : "0.0.x",
-		"morgan" : "1.1.x"
+		"morgan" : "1.2.x"
 	},
 	"devDependencies": {
 		"grunt": "0.4.x",
-		"grunt-contrib-clean": "0.5.x",
+		"grunt-contrib-clean": "0.6.x",
 		"grunt-contrib-copy": "0.5.x",
-		"grunt-contrib-concat": "0.4.x",
-		"grunt-contrib-uglify": "0.4.x",
+		"grunt-contrib-concat": "0.5.x",
+		"grunt-contrib-uglify": "0.5.x",
 		"grunt-contrib-watch": "0.6.x"
 	}
 }
